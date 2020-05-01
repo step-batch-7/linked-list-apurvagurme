@@ -80,6 +80,11 @@ Status add_unique(List_ptr list, int value)
 {
   Node *new_node = create_node(value);
   Node *p_walk = list->head;
+  if (list->head == NULL)
+  {
+    list->head = new_node;
+    list->last = new_node;
+  }
   while (p_walk != NULL && p_walk->value != value)
   {
     if (p_walk->next == NULL)
@@ -87,6 +92,17 @@ Status add_unique(List_ptr list, int value)
       p_walk->next = new_node;
     }
     p_walk = p_walk->next;
+  }
+  return Success;
+}
+
+Status remove_from_start(List_ptr list)
+{
+  if (list->head != NULL)
+  {
+    Node *new_node = list->head;
+    list->head = new_node->next;
+    free(new_node);
   }
   return Success;
 }
