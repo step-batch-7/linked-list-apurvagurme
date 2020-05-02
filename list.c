@@ -240,6 +240,45 @@ Status remove_all_occurrences(List_ptr list, int value)
   return Success;
 }
 
+Status clear_list(List_ptr list)
+{
+  Node_ptr p_walk = list->head;
+  while (p_walk != NULL)
+  {
+    p_walk->value = 0;
+    p_walk = p_walk->next;
+  }
+  return Success;
+}
+
+void destroy_list(List_ptr list)
+{
+  Node *p_walk = list->head;
+  while (p_walk->next != NULL)
+  {
+    Node *next = p_walk->next;
+    free(p_walk);
+    p_walk = next; 
+  }
+  list->head = NULL;
+  list->last = NULL;
+  free(list);
+}
+
+Status is_present(List_ptr list, int value)
+{
+  Node_ptr p_walk = list->head;
+  while (p_walk != NULL)
+  {
+    if (p_walk->value == value)
+    {
+      return Success;
+    }
+    p_walk = p_walk->next;
+  }
+  return Failure;
+}
+
 void display(List_ptr list)
 {
   Node_ptr p_walk = list->head;
