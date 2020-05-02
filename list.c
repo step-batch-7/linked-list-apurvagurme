@@ -177,13 +177,13 @@ Status remove_at(List_ptr list, int position)
 Status remove_first_occurrence(List_ptr list, int value)
 {
   Node_ptr p_walk = list->head;
-  printf("%dvalue is\n", list->head->value);
 
   if (list->head->value == value)
   {
     Node_ptr previous = list->head;
     list->head = list->head->next;
     free(previous);
+    list->count--;
     return Success;
   }
   
@@ -191,13 +191,51 @@ Status remove_first_occurrence(List_ptr list, int value)
   {
     if (p_walk->next->value == value)
     {
-      printf("helo2");
       Node_ptr next = p_walk->next->next;
       free(p_walk->next);
       p_walk->next = next;
+      list->count--;
       break;
     }
     p_walk = p_walk->next;
+  }
+  return Success;
+}
+
+Status remove_all_occurrences(List_ptr list, int value)
+{
+  Node_ptr p_walk = list->head;
+
+  if (list->count == 1 && list->head->value == value)
+  {
+    Node_ptr previous = list->head;
+    list->head = list->head->next;
+    free(previous);
+    list->count--;
+    return Success;
+  }
+  
+  while (p_walk->value == value)
+  {
+    Node_ptr previous = list->head;
+    list->head = list->head->next;
+    free(previous);
+    p_walk = list->head;
+  }
+  
+  while (p_walk->next != NULL )
+  {
+    if (p_walk->next->value == value)
+    {
+      Node_ptr next = p_walk->next->next;
+      free(p_walk->next);
+      p_walk->next = next;
+      list->count--;
+    }
+    else
+    {
+      p_walk = p_walk->next;
+    }
   }
   return Success;
 }
