@@ -39,8 +39,23 @@ Status add_to_start(List_ptr list, int value)
   return Success;
 }
 
+Status is_valid_position(int position, List_ptr list)
+{
+  if (position > list->count - 1 || position < 0)
+  {
+    return Failure;
+  }
+  return Success;
+}  
+  
 Status insert_at(List_ptr list, int value, int position)
 {
+  int valid = is_valid_position(position, list);
+  if (!valid)
+  {
+    return Failure; 
+  }
+  
   Node_ptr new_node = create_node(value);
   if (position == 0)
   {
@@ -113,7 +128,8 @@ Status remove_from_end(List_ptr list)
 
 Status remove_at(List_ptr list, int position)
 {
-  if (position > list->count - 1 || position < 0)
+  int valid = is_valid_position(position, list);
+  if (!valid)
   {
     return Failure;
   }
