@@ -45,7 +45,11 @@ int main(void)
       case 'd': printf("Please enter a number to add it in the list if not present\n");
                 scanf("%d", &number);
                 clear_buffer();
-                add_unique(list, number);
+                success = add_unique(list, number);
+                if (!success)
+                {
+                  printf("Entered number is not unique\n");
+                }
                 break;
 
       case 'e': success = remove_from_start(list);

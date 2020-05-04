@@ -5,10 +5,7 @@
 Node_ptr create_node(value)
 {
   Node_ptr new_node = malloc(sizeof(Node));
-  if (new_node == NULL)
-  {
-    return 0;
-  }
+  if (new_node == NULL) return 0;
   new_node->value = value;
   new_node->next = NULL;
   return new_node;
@@ -17,10 +14,7 @@ Node_ptr create_node(value)
 List_ptr create_list(void)
 {
   List_ptr list = malloc(sizeof(List));
-  if (list == NULL)
-  {
-    return 0;
-  }
+  if (list == NULL) return 0;
   list->head = NULL;
   list->last = NULL;
   list->count = 0;
@@ -97,10 +91,11 @@ Status add_unique(List_ptr list, int value)
     {
       p_walk->next = new_node;
       list->count++;
+      return Success;
     }
     p_walk = p_walk->next;
   }
-  return Success;
+  return Failure;
 }
 
 Status remove_from_start(List_ptr list)
@@ -169,7 +164,7 @@ Status remove_first_occurrence(List_ptr list, int value)
   }
   
   Node_ptr p_walk = list->head;
-  while (p_walk != NULL)
+  while (p_walk->next != NULL)
   {
     if (p_walk->next->value == value)
     {
@@ -181,6 +176,12 @@ Status remove_first_occurrence(List_ptr list, int value)
   return Failure;
 }
 
+void set_head_and_last(List_ptr list)
+{
+  list->head = NULL;
+  list->last = NULL;
+}
+
 Status remove_all_occurrences(List_ptr list, int value)
 {
   if (list->count == 1 && list->head->value == value)
@@ -189,6 +190,7 @@ Status remove_all_occurrences(List_ptr list, int value)
     list->head = list->head->next;
     free(previous);
     list->count--;
+    list->last = NULL;
     return Success;
   }
   
@@ -198,6 +200,7 @@ Status remove_all_occurrences(List_ptr list, int value)
     Node_ptr previous = list->head;
     list->head = list->head->next;
     free(previous);
+    list->count--;
     p_walk = list->head;
   }
   
@@ -212,6 +215,8 @@ Status remove_all_occurrences(List_ptr list, int value)
       p_walk = p_walk->next;
     }
   }
+
+  if (list->count == 0) set_head_and_last(list);
   return Success;
 }
 
@@ -235,8 +240,7 @@ void destroy_list(List_ptr list)
     free(p_walk);
     p_walk = next; 
   }
-  list->head = NULL;
-  list->last = NULL;
+  set_head_and_last(list);
   free(list);
 }
 

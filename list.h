@@ -51,5 +51,5 @@ void destroy_list(List_ptr); // Frees the elements and the list structure from m
 
 Status is_present(List_ptr list, int value);
 Status remove_from_list(List_ptr list, Node_ptr current);
-
+void set_head_and_last(List_ptr list);
 #endif
