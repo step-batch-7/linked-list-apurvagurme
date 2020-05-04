@@ -50,5 +50,6 @@ Status clear_list(List_ptr); // Removes all elements in the list
 void destroy_list(List_ptr); // Frees the elements and the list structure from memory
 
 Status is_present(List_ptr list, int value);
+Status remove_from_list(List_ptr list, Node_ptr current);
 
 #endif

@@ -116,5 +116,6 @@ int main(void)
     scanf("%c", &option);
   }
 
+  destroy_list(list);
   return 0;
 }
