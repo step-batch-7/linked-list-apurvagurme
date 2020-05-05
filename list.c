@@ -114,8 +114,27 @@ Status remove_from_start(List_ptr list)
 
 Status remove_from_end(List_ptr list)
 {
-  int success = remove_at(list, list->count - 1);
-  if (!success) return Failure;
+  Node_ptr p_walk = list->head;
+
+  if (list->count == 1)
+  {
+    set_head_and_last(list);
+    return Success;
+  }
+  
+  while (p_walk->next != NULL)
+  {
+    if (p_walk->next->next == NULL)
+    {
+      list->last = p_walk;
+      free(p_walk->next);
+      p_walk->next = NULL;
+      list->count--;
+      break;
+    }
+    p_walk = p_walk->next;
+  }
+
   return Success;
 }
 
@@ -123,12 +142,16 @@ Status remove_at(List_ptr list, int position)
 {
   int valid = is_valid_position(position, list->count - 1);
   if (!valid) return Failure;
-  
   if (position == 0)
   {
     return remove_from_start(list);
   }
 
+  if (position == list->count - 1)
+  {
+    return remove_from_end(list);
+  }
+  
   Node_ptr p_walk = list->head;
   int count = 0;
   while (p_walk->next != NULL)
@@ -183,6 +206,7 @@ void set_head_and_last(List_ptr list)
 {
   list->head = NULL;
   list->last = NULL;
+  list->count = 0;
 }
 
 Status remove_all_occurrences(List_ptr list, int value)
