@@ -225,22 +225,17 @@ Status clear_list(List_ptr list)
   Node_ptr p_walk = list->head;
   while (p_walk != NULL)
   {
-    p_walk->value = 0;
-    p_walk = p_walk->next;
+    Node_ptr next = p_walk->next;
+    free(p_walk);
+    p_walk = next;
   }
+  set_head_and_last(list);
   return Success;
 }
 
 void destroy_list(List_ptr list)
 {
-  Node *p_walk = list->head;
-  while (p_walk->next != NULL)
-  {
-    Node *next = p_walk->next;
-    free(p_walk);
-    p_walk = next; 
-  }
-  set_head_and_last(list);
+  clear_list(list);
   free(list);
 }
 
