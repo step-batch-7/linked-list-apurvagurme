@@ -24,6 +24,11 @@ List_ptr create_list(void)
 Status add_to_end(List_ptr list, int value)
 {
   Node_ptr new_node = create_node(value);
+  if(new_node == NULL)
+  {
+    return Failure;
+  }
+
   if (list->head == NULL)
   {
     list->head = new_node;
@@ -40,6 +45,11 @@ Status add_to_end(List_ptr list, int value)
 Status add_to_start(List_ptr list, int value)
 {
   Node_ptr new_node = create_node(value);
+  if(new_node == NULL)
+  {
+    return Failure;
+  }
+
   if(list->head == NULL)
   {
     list->last = new_node;
@@ -52,7 +62,7 @@ Status add_to_start(List_ptr list, int value)
 
 Status is_valid_position(int position, int count)
 {
-if (position > count || position < 0)
+  if (position > count || position < 0)
   {
     return Failure;
   }
@@ -75,6 +85,11 @@ Status insert_at(List_ptr list, int value, int position)
   }
   
   Node_ptr new_node = create_node(value);
+  if(new_node == NULL)
+  {
+    return Failure;
+  }
+
   Node_ptr p_walk = list->head;
   int count = 0;
   
