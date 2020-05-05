@@ -57,6 +57,7 @@ int main(void)
                 {
                   printf("Removing a number from the beginning of the list is not possible\n");
                 }
+                clear_buffer();
                 break;
       
       case 'f': success = remove_from_end(list);
@@ -64,6 +65,7 @@ int main(void)
                 {
                   printf("Removing a number from the end of the list is not possible\n");
                 }
+                clear_buffer();
                 break;
 
       case 'g': printf("Please enter a position to remove a number of that position from list\n");

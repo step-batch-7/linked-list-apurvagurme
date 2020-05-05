@@ -23,13 +23,30 @@ List_ptr create_list(void)
 
 Status add_to_end(List_ptr list, int value)
 {
-  insert_at(list, value, list->count);
+  Node_ptr new_node = create_node(value);
+  if (list->head == NULL)
+  {
+    list->head = new_node;
+  } 
+  else 
+  {
+    list->last->next = new_node;
+  }
+  list->last = new_node;
+  list->count++;
   return Success;
 }
 
 Status add_to_start(List_ptr list, int value)
 {
-  insert_at(list, value, 0);
+  Node_ptr new_node = create_node(value);
+  if(list->head == NULL)
+  {
+    list->last = new_node;
+  }
+  new_node->next = list->head;
+  list->head = new_node;
+  list->count++;
   return Success;
 }
 
@@ -47,16 +64,17 @@ Status insert_at(List_ptr list, int value, int position)
   int valid = is_valid_position(position, list->count);
   if (!valid) return Failure;
   
-  Node_ptr new_node = create_node(value);
   if (position == 0)
   {
-    new_node->next = list->head;
-    list->head = new_node;
-    list->last = new_node;
-    list->count++;
-    return Success;
+    return add_to_start(list, value); 
   }
 
+  if (list->count - 1 == position)
+  {
+    add_to_end(list, value);
+  }
+  
+  Node_ptr new_node = create_node(value);
   Node_ptr p_walk = list->head;
   int count = 0;
   
@@ -101,14 +119,10 @@ Status add_unique(List_ptr list, int value)
 Status remove_from_start(List_ptr list)
 {
   if (list->count == 0) return Failure;
-  if (list->head != NULL)
-  {
-    Node *new_node = list->head;
-    list->head = new_node->next;
-    free(new_node);
-    list->count--;
-  }
-  if (list->count == 0) set_head_and_last(list);
+  Node *first_node = list->head;
+  list->head = first_node->next;
+  free(first_node);
+  list->count--;
   return Success;
 }
 
@@ -116,10 +130,14 @@ Status remove_from_end(List_ptr list)
 {
   Node_ptr p_walk = list->head;
 
+  if(list->count == 0)
+  {
+    return Failure;
+  }
+
   if (list->count == 1)
   {
-    set_head_and_last(list);
-    return Success;
+    clear_list(list);
   }
   
   while (p_walk->next != NULL)
