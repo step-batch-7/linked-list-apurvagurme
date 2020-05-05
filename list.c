@@ -101,7 +101,14 @@ Status add_unique(List_ptr list, int value)
 Status remove_from_start(List_ptr list)
 {
   if (list->count == 0) return Failure;
-  remove_at(list, 0);
+  if (list->head != NULL)
+  {
+    Node *new_node = list->head;
+    list->head = new_node->next;
+    free(new_node);
+    list->count--;
+  }
+  if (list->count == 0) set_head_and_last(list);
   return Success;
 }
 
@@ -119,11 +126,7 @@ Status remove_at(List_ptr list, int position)
   
   if (position == 0)
   {
-    Node_ptr previous = list->head;
-    list->head = list->head->next;
-    free(previous);
-    list->count--;
-    return Success;
+    return remove_from_start(list);
   }
 
   Node_ptr p_walk = list->head;
