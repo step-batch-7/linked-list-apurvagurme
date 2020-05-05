@@ -5,7 +5,6 @@
 Node_ptr create_node(value)
 {
   Node_ptr new_node = malloc(sizeof(Node));
-  if (new_node == NULL) return 0;
   new_node->value = value;
   new_node->next = NULL;
   return new_node;
@@ -14,7 +13,6 @@ Node_ptr create_node(value)
 List_ptr create_list(void)
 {
   List_ptr list = malloc(sizeof(List));
-  if (list == NULL) return 0;
   list->head = NULL;
   list->last = NULL;
   list->count = 0;
