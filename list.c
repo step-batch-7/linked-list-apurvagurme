@@ -191,10 +191,11 @@ Status remove_at(List_ptr list, int position)
     p_walk = p_walk->next;
     count++;
   }
-  
+
   Node_ptr next = p_walk->next->next;
   free(p_walk->next);
   p_walk->next = next;
+  list->count--;
   return Success;
 }
 
