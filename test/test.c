@@ -109,10 +109,50 @@ void insert_at_the_0th_position_of_empty_list(List_ptr list)
   printf("%s %s", sign, msg);
 }
 
+void insert_at_the_0th_position_of_list_having_one_element(List_ptr list)
+{
+  int result = insert_at(list, 1, 0);
+  char msg[] = "Should insert at the 0th position of list having one element\n";
+  char *sign = "❎ ";
+  
+  if (result == Success && list->count == 2 && list->head->value == 1 && list->last->value == 0)
+  {
+    sign = "✅ ";
+  }
+  printf("%s %s", sign, msg);
+}
+
+void insert_at_the_1st_position_of_list_having_two_element(List_ptr list)
+{
+  int result = insert_at(list, 2, 1);
+  char msg[] = "Should insert at the 1st position of list having two element\n";
+  char *sign = "❎ ";
+  if (result == Success && list->count == 3 && list->head->value == 1 && list->last->value == 0)
+  {
+    sign = "✅ ";
+  }
+  printf("%s %s", sign, msg);
+}
+
+void insert_at_the_last_position_of_list(List_ptr list)
+{
+  int result = insert_at(list, 4, list->count);
+  char msg[] = "Should insert at the 1st position of list having two element\n";
+  char *sign = "❎ ";
+  if (result == Success && list->count == 4 && list->head->value == 1 && list->last->value == 4)
+  {
+    sign = "✅ ";
+  }
+  printf("%s %s", sign, msg);
+}
+
 void test_insert_at(void)
 {
   List_ptr list = create_list();
   insert_at_the_0th_position_of_empty_list(list);
+  insert_at_the_0th_position_of_list_having_one_element(list);
+  insert_at_the_1st_position_of_list_having_two_element(list);
+  insert_at_the_last_position_of_list(list);
 }
 
 int main(void)

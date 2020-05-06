@@ -60,7 +60,6 @@ Status add_to_start(List_ptr list, int value)
 
 Status is_valid_position(int position, int count)
 {
-  printf("%d", position);
   if (position > count || position < 0)
   {
     return Failure;
@@ -77,10 +76,9 @@ Status insert_at(List_ptr list, int value, int position)
   {
     return add_to_start(list, value); 
   }
-
-  if (list->count - 1 == position)
+  if (list->count == position)
   {
-    add_to_end(list, value);
+    return add_to_end(list, value);
   }
   
   Node_ptr new_node = create_node(value);
