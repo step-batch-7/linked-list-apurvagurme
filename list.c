@@ -185,18 +185,15 @@ Status remove_at(List_ptr list, int position)
   
   Node_ptr p_walk = list->head;
   int count = 0;
-  while (p_walk->next != NULL)
+  while (count < position - 1)
   {
-    if (count - 1 == position)
-    {
-      Node_ptr next = p_walk->next->next;
-      free(p_walk);
-      p_walk->next = next;
-      list->count--;
-      break;
-    }
+    p_walk = p_walk->next;
     count++;
   }
+  
+  Node_ptr next = p_walk->next->next;
+  free(p_walk->next);
+  p_walk->next = next;
   return Success;
 }
 
@@ -242,39 +239,21 @@ void set_head_and_last(List_ptr list)
 
 Status remove_all_occurrences(List_ptr list, int value)
 {
-  if (list->count == 1 && list->head->value == value)
-  {
-    Node_ptr previous = list->head;
-    list->head = list->head->next;
-    free(previous);
-    list->count--;
-    list->last = NULL;
-    return Success;
-  }
-  
   Node_ptr p_walk = list->head;
-  while (p_walk->value == value)
+  int position = 0;
+  Status status = Failure;
+  while (p_walk != NULL)
   {
-    Node_ptr previous = list->head;
-    list->head = list->head->next;
-    free(previous);
-    list->count--;
-    p_walk = list->head;
-  }
-  
-  while (p_walk->next != NULL )
-  {
-    if (p_walk->next->value == value)
+    if (p_walk->value == value)
     {
-      remove_from_list(list, p_walk);
+      display(list);
+      remove_at(list, position);
+      status = Success;
+      position--;
     }
-    else
-    {
-      p_walk = p_walk->next;
-    }
+    p_walk = p_walk->next;
+    position++;
   }
-
-  if (list->count == 0) set_head_and_last(list);
   return Success;
 }
 
