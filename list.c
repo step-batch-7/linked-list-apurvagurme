@@ -60,6 +60,7 @@ Status add_to_start(List_ptr list, int value)
 
 Status is_valid_position(int position, int count)
 {
+  printf("%d", position);
   if (position > count || position < 0)
   {
     return Failure;
@@ -246,7 +247,6 @@ Status remove_all_occurrences(List_ptr list, int value)
   {
     if (p_walk->value == value)
     {
-      display(list);
       remove_at(list, position);
       status = Success;
       position--;
@@ -254,7 +254,7 @@ Status remove_all_occurrences(List_ptr list, int value)
     p_walk = p_walk->next;
     position++;
   }
-  return Success;
+  return status;
 }
 
 Status clear_list(List_ptr list)
