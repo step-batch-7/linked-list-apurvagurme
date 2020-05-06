@@ -23,14 +23,19 @@ Status assert(List_ptr list, char msg[], int result, int count, int expected_lis
   return status;
 }
 
+void print_result(Status status, char msg[])
+{
+  char *sign = status == Success ? "✅ " : "❎ ";
+  printf("%s %s", sign, msg);
+}
+
 void add_to_end_in_empty_list(List_ptr list)
 {
   int result = add_to_end(list, 1);
   char msg[] = "Should add add to the end of empty list\n";
   int expected_values[1] = {1};
   Status status = assert(list, msg, result, 1, expected_values);
-  char *sign = status == Success ? "✅ " : "❎ ";
-  printf("%s %s", sign, msg);
+  print_result(status, msg);
 }
 
 void add_to_end_in_list_of_1_number(List_ptr list)
@@ -39,8 +44,7 @@ void add_to_end_in_list_of_1_number(List_ptr list)
   char msg[] = "Should add to the end of list having one number\n";
   int expected_values[2] = {1, 2};
   Status status = assert(list, msg, result, 2, expected_values);
-  char *sign = status == Success ? "✅ " : "❎ ";
-  printf("%s %s", sign, msg);
+  print_result(status, msg);
 }
 
 void add_to_end_in_list_of_having_more_than_one_numbers(List_ptr list)
@@ -49,8 +53,7 @@ void add_to_end_in_list_of_having_more_than_one_numbers(List_ptr list)
   char msg[] = "Should add add to the end of list having more than one number\n";
   int expected_values[3] = {1, 2, 3};
   Status status = assert(list, msg, result, 3, expected_values);
-  char *sign = status == Success ? "✅ " : "❎ ";
-  printf("%s %s", sign, msg);
+  print_result(status, msg);
 }
 
 void test_add_to_end(void)
@@ -67,8 +70,7 @@ void add_to_start_in_empty_list(List_ptr list)
   char msg[] = "Should add add to the start of empty list\n";
   int expected_values[1] = {1};
   Status status = assert(list, msg, result, 1, expected_values);
-  char *sign = status == Success ? "✅ " : "❎ ";
-  printf("%s %s", sign, msg);
+  print_result(status, msg);
 }
 
 void add_to_start_in_list_of_1_number(List_ptr list)
@@ -77,8 +79,7 @@ void add_to_start_in_list_of_1_number(List_ptr list)
   char msg[] = "Should add to the start of list having one number\n";
   int expected_values[2] = {2, 1};
   Status status = assert(list, msg, result, 2, expected_values);
-  char *sign = status == Success ? "✅ " : "❎ ";
-  printf("%s %s", sign, msg);
+  print_result(status, msg);
 }
 
 void add_to_start_in_list_of_having_more_than_one_numbers(List_ptr list)
@@ -87,8 +88,7 @@ void add_to_start_in_list_of_having_more_than_one_numbers(List_ptr list)
   char msg[] = "Should add add to the start of list having more than one number\n";
   int expected_values[3] = {3, 2, 1};
   Status status = assert(list, msg, result, 3, expected_values);
-  char *sign = status == Success ? "✅ " : "❎ ";
-  printf("%s %s", sign, msg);
+  print_result(status, msg);
 }
 
 void test_add_to_start(void)
@@ -105,8 +105,7 @@ void insert_at_the_0th_position_of_empty_list(List_ptr list)
   char msg[] = "Should insert at the 0th position of an empty list\n";
   int expected_values[1] = {0};
   Status status = assert(list, msg, result, 1, expected_values);
-  char *sign = status == Success ? "✅ " : "❎ ";
-  printf("%s %s", sign, msg);
+  print_result(status, msg);
 }
 
 void insert_at_the_0th_position_of_list_having_one_element(List_ptr list)
@@ -115,8 +114,7 @@ void insert_at_the_0th_position_of_list_having_one_element(List_ptr list)
   char msg[] = "Should insert at the 0th position of list having one element\n";
   int expected_values[2] = {1, 0};
   Status status = assert(list, msg, result, 2, expected_values);
-  char *sign = status == Success ? "✅ " : "❎ ";
-  printf("%s %s", sign, msg);
+  print_result(status, msg);
 }
 
 void insert_at_the_1st_position_or_middle_of_list_having_two_element(List_ptr list)
@@ -125,8 +123,7 @@ void insert_at_the_1st_position_or_middle_of_list_having_two_element(List_ptr li
   char msg[] = "Should insert at the 1st position of list having two element\n";
   int expected_values[3] = {1, 2, 0};
   Status status = assert(list, msg, result, 3, expected_values);
-  char *sign = status == Success ? "✅ " : "❎ ";
-  printf("%s %s", sign, msg);
+  print_result(status, msg);
 }
 
 void insert_at_the_last_position_of_list(List_ptr list)
@@ -135,8 +132,7 @@ void insert_at_the_last_position_of_list(List_ptr list)
   char msg[] = "Should insert at the last position of list\n";
   int expected_values[4] = {1, 2, 0, 4};
   Status status = assert(list, msg, result, 4, expected_values);
-  char *sign = status == Success ? "✅ " : "❎ ";
-  printf("%s %s", sign, msg);
+  print_result(status, msg);
 }
 
 void test_insert_at(void)
@@ -154,8 +150,7 @@ void add_unique_if_list_is_empty(List_ptr list)
   char msg[] = "Should add at end of an empty list\n";
   int expected_values[1] = {0};
   Status status = assert(list, msg, result, 1, expected_values);
-  char *sign = status == Success ? "✅ " : "❎ ";
-  printf("%s %s", sign, msg);
+  print_result(status, msg);
 }
 
 void test_add_unique(void)
