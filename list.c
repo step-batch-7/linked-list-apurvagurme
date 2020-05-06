@@ -114,6 +114,7 @@ Status add_unique(List_ptr list, int value)
     list->head = new_node;
     list->last = new_node;
     list->count++;
+    return Success;
   }
   while (p_walk != NULL && p_walk->value != value)
   {
