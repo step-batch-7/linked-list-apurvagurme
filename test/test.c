@@ -302,22 +302,22 @@ void remove_at_from_start_if_list_is_not_empty(List_ptr list)
   print_result(status, msg);
 }
 
-void remove_from_middle(List_ptr list)
+void remove_at_from_end_if_list_is_not_empty(List_ptr list)
 {
   add_to_start(list, 1);
-  int result = remove_at(list, 1);
-  char msg[] = "Should remove from middle of the list\n";
-  int expected_values[2] = {1, 3};
+  int result = remove_at(list, 2);
+  char msg[] = "Should remove from end of the list\n";
+  int expected_values[2] = {1, 2};
   Status status = assert(list, msg, result, 2, expected_values, Success);
   print_result(status, msg);
 }
 
-void remove_at_from_end_if_list_is_not_empty(List_ptr list)
+void remove_from_middle(List_ptr list)
 {
-  add_to_start(list, 2);
-  int result = remove_at(list, 2);
+  add_to_end(list, 3);
+  int result = remove_at(list, 1);
   char msg[] = "Should remove from middle of the list\n";
-  int expected_values[2] = {2, 1};
+  int expected_values[2] = {1, 3};
   Status status = assert(list, msg, result, 2, expected_values, Success);
   print_result(status, msg);
 }
@@ -329,8 +329,8 @@ void test_remove_at(void)
   remove_at_from_end_if_list_is_empty(list);
   remove_at_from_start_if_list_is_empty(list);
   remove_at_from_start_if_list_is_not_empty(list);
-  remove_from_middle(list);
   remove_at_from_end_if_list_is_not_empty(list);
+  remove_from_middle(list);
 }
 
 int main(void)
