@@ -272,6 +272,67 @@ void test_remove_from_end(void)
   remove_from_end_if_list_has_more_than_one_elements(list);
 }
 
+void remove_at_from_end_if_list_is_empty(List_ptr list)
+{
+  int result = remove_at(list, 1);
+  char msg[] = "Should not remove from end if the list is empty\n";
+  int expected_values[0] = {};
+  Status status = assert(list, msg, result, 0, expected_values, Failure);
+  print_result(status, msg);
+}
+
+void remove_at_from_start_if_list_is_empty(List_ptr list)
+{
+  int result = remove_at(list, 0);
+  char msg[] = "Should not remove from end if the list is empty\n";
+  int expected_values[0] = {};
+  Status status = assert(list, msg, result, 0, expected_values, Failure);
+  print_result(status, msg);
+}
+
+void remove_at_from_start_if_list_is_not_empty(List_ptr list)
+{
+  add_to_end(list, 1);
+  add_to_end(list, 2);
+  add_to_end(list, 3);
+  int result = remove_at(list, 0);
+  char msg[] = "Should remove from start of the list\n";
+  int expected_values[2] = {2, 3};
+  Status status = assert(list, msg, result, 2, expected_values, Success);
+  print_result(status, msg);
+}
+
+void remove_from_middle(List_ptr list)
+{
+  add_to_start(list, 1);
+  int result = remove_at(list, 1);
+  char msg[] = "Should remove from middle of the list\n";
+  int expected_values[2] = {1, 3};
+  Status status = assert(list, msg, result, 2, expected_values, Success);
+  print_result(status, msg);
+}
+
+void remove_at_from_end_if_list_is_not_empty(List_ptr list)
+{
+  add_to_start(list, 2);
+  int result = remove_at(list, 2);
+  char msg[] = "Should remove from middle of the list\n";
+  int expected_values[2] = {2, 1};
+  Status status = assert(list, msg, result, 2, expected_values, Success);
+  print_result(status, msg);
+}
+
+void test_remove_at(void)
+{
+  List_ptr list = create_list();
+  printf("\n#remove_at\n");
+  remove_at_from_end_if_list_is_empty(list);
+  remove_at_from_start_if_list_is_empty(list);
+  remove_at_from_start_if_list_is_not_empty(list);
+  remove_from_middle(list);
+  remove_at_from_end_if_list_is_not_empty(list);
+}
+
 int main(void)
 {
   test_add_to_end();
@@ -280,5 +341,6 @@ int main(void)
   test_add_unique();
   test_remove_from_start();
   test_remove_from_end();
+  test_remove_at();
   return 0;
 }
