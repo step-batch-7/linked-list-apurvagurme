@@ -197,7 +197,7 @@ void test_add_unique(void)
 void remove_from_start_if_list_is_empty(List_ptr list)
 {
   int result = remove_from_start(list);
-  char msg[] = "Should not remove if the list is empty\n";
+  char msg[] = "Should not remove from start if the list is empty\n";
   int expected_values[0] = {};
   Status status = assert(list, msg, result, 0, expected_values, Failure);
   print_result(status, msg);
@@ -207,7 +207,7 @@ void remove_from_start_if_list_is_not_empty(List_ptr list)
 {
   add_to_start(list, 1);
   int result = remove_from_start(list);
-  char msg[] = "Should remove if the list has one element\n";
+  char msg[] = "Should remove from start if the list has one element\n";
   int expected_values[0] = {};
   Status status = assert(list, msg, result, 0, expected_values, Success);
   print_result(status, msg);
@@ -218,7 +218,7 @@ void remove_from_start_if_list_has_more_than_one_elements(List_ptr list)
   add_to_end(list, 1);
   add_to_end(list, 2);
   int result = remove_from_start(list);
-  char msg[] = "Should remove if the list has more than one elements\n";
+  char msg[] = "Should remove from start if the list has more than one elements\n";
   int expected_values[1] = {2};
   Status status = assert(list, msg, result, 1, expected_values, Success);
   print_result(status, msg);
@@ -233,6 +233,45 @@ void test_remove_from_start(void)
   remove_from_start_if_list_has_more_than_one_elements(list);
 }
 
+void remove_from_end_if_list_is_empty(List_ptr list)
+{
+  int result = remove_from_end(list);
+  char msg[] = "Should not remove from end if the list is empty\n";
+  int expected_values[0] = {};
+  Status status = assert(list, msg, result, 0, expected_values, Failure);
+  print_result(status, msg);
+}
+
+void remove_from_end_if_list_is_not_empty(List_ptr list)
+{
+  add_to_start(list, 1);
+  int result = remove_from_end(list);
+  char msg[] = "Should remove from end if the list has one element\n";
+  int expected_values[0] = {};
+  Status status = assert(list, msg, result, 0, expected_values, Success);
+  print_result(status, msg);
+}
+
+void remove_from_end_if_list_has_more_than_one_elements(List_ptr list)
+{
+  add_to_end(list, 1);
+  add_to_end(list, 2);
+  int result = remove_from_end(list);
+  char msg[] = "Should remove from end if the list has more than one elements\n";
+  int expected_values[1] = {1};
+  Status status = assert(list, msg, result, 1, expected_values, Success);
+  print_result(status, msg);
+}
+
+void test_remove_from_end(void)
+{
+  List_ptr list = create_list();
+  printf("\n#remove_from_end\n");
+  remove_from_end_if_list_is_empty(list);
+  remove_from_end_if_list_is_not_empty(list);
+  remove_from_end_if_list_has_more_than_one_elements(list);
+}
+
 int main(void)
 {
   test_add_to_end();
@@ -240,5 +279,6 @@ int main(void)
   test_insert_at();
   test_add_unique();
   test_remove_from_start();
+  test_remove_from_end();
   return 0;
 }
