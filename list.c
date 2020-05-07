@@ -236,6 +236,10 @@ Status remove_all_occurrences(List_ptr list, int value)
 
 Status clear_list(List_ptr list)
 {
+  if (list->count == 0)
+  {
+    return Failure;
+  }
   Node_ptr p_walk = list->head;
   while (p_walk != NULL)
   {

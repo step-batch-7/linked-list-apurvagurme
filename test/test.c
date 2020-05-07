@@ -512,6 +512,45 @@ void test_remove_all_occurrences(void)
   remove_all_occurrences_adjacent_occurrences_in_list(list);
 }
 
+void clear_list_when_empty_list(List_ptr list)
+{
+  int result = clear_list(list);
+  char msg[] = "Should not clear when list is empty\n";
+  int expected_values[0] = {};
+  Status status = assert(list, msg, result, 0, expected_values, Failure);
+  print_result(status, msg);
+}
+
+void clear_list_when_one_element_in_list(List_ptr list)
+{
+  add_to_end(list, 0);
+  int result = clear_list(list);
+  char msg[] = "Should clear when only one element in list\n";
+  int expected_values[0] = {};
+  Status status = assert(list, msg, result, 0, expected_values, Success);
+  print_result(status, msg);
+}
+
+void clear_list_when_more_than_one_element_in_list(List_ptr list)
+{
+  add_to_end(list, 0);
+  add_to_end(list, 1);
+  int result = clear_list(list);
+  char msg[] = "Should clear when only more than one element in list\n";
+  int expected_values[0] = {};
+  Status status = assert(list, msg, result, 0, expected_values, Success);
+  print_result(status, msg);
+}
+
+void test_clear_list(void)
+{
+  List_ptr list = create_list();
+  printf("\n#clear_list\n");
+  clear_list_when_empty_list(list);
+  clear_list_when_one_element_in_list(list);
+  clear_list_when_more_than_one_element_in_list(list);
+}
+
 int main(void)
 {
   test_add_to_end();
@@ -523,5 +562,6 @@ int main(void)
   test_remove_at();
   test_remove_first_occurrence();
   test_remove_all_occurrences();
+  test_clear_list();
   return 0;
 }
