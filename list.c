@@ -198,35 +198,19 @@ Status remove_at(List_ptr list, int position)
   return Success;
 }
 
-Status remove_from_list(List_ptr list, Node_ptr current)
-{
-  Node_ptr next = current->next->next;
-  free(current->next);
-  current->next = next;
-  list->count--;
-  return Success;
-}
-
 Status remove_first_occurrence(List_ptr list, int value)
 {
-  if (list->head->value == value)
-  {
-    Node_ptr previous = list->head;
-    list->head = list->head->next;
-    free(previous);
-    list->count--;
-    return Success;
-  }
-  
   Node_ptr p_walk = list->head;
-  while (p_walk->next != NULL)
+  int position = 0;
+  Status status = Failure;
+  while (p_walk != NULL)
   {
-    if (p_walk->next->value == value)
+    if (p_walk->value == value) 
     {
-      remove_from_list(list, p_walk);
-      return Success;
+      return remove_at(list, position);
     }
     p_walk = p_walk->next;
+    position++;
   }
   return Failure;
 }

@@ -333,6 +333,89 @@ void test_remove_at(void)
   remove_from_middle(list);
 }
 
+void remove_first_occurrence_in_empty_list(List_ptr list)
+{
+  int result = remove_first_occurrence(list, 1);
+  char msg[] = "Should not remove from an empty list\n";
+  int expected_values[] = {};
+  Status status = assert(list, msg, result, 0, expected_values, Failure);
+  print_result(status, msg);
+}
+
+void remove_first_occurrence_one_element_list(List_ptr list)
+{
+  add_to_end(list, 0);
+  int result = remove_first_occurrence(list, 0);
+  char msg[] = "Should not remove from an empty list\n";
+  int expected_values[] = {};
+  Status status = assert(list, msg, result, 0, expected_values, Success);
+  print_result(status, msg);
+}
+
+void remove_first_occurrence_from_end_more_than_one_element_list(List_ptr list)
+{
+  add_to_end(list, 0);
+  add_to_end(list, 1);
+  add_to_end(list, 2);
+  int result = remove_first_occurrence(list, 2);
+  char msg[] = "Should not remove from an empty list\n";
+  int expected_values[] = {0, 1};
+  Status status = assert(list, msg, result, 2, expected_values, Success);
+  print_result(status, msg);
+}
+
+void remove_first_occurrence_from_start_more_than_one_element_list(List_ptr list)
+{
+  add_to_end(list, 2);
+  int result = remove_first_occurrence(list, 0);
+  char msg[] = "Should not remove from an empty list\n";
+  int expected_values[] = {1, 2};
+  Status status = assert(list, msg, result, 2, expected_values, Success);
+  print_result(status, msg);
+}
+
+void remove_first_occurrence_from_medium_more_than_one_element_list(List_ptr list)
+{
+  add_to_start(list, 0);
+  int result = remove_first_occurrence(list, 1);
+  char msg[] = "Should not remove from an empty list\n";
+  int expected_values[] = {0, 2};
+  Status status = assert(list, msg, result, 2, expected_values, Success);
+  print_result(status, msg);
+}
+
+void remove_first_occurrence_when_more_occurrences_in_list(List_ptr list)
+{
+  add_to_start(list, 2);
+  int result = remove_first_occurrence(list, 2);
+  char msg[] = "Should not remove from an empty list\n";
+  int expected_values[] = {0, 2};
+  Status status = assert(list, msg, result, 2, expected_values, Success);
+  print_result(status, msg);
+}
+
+void remove_first_occurrence_if_no_occurrences_in_list(List_ptr list)
+{
+  int result = remove_first_occurrence(list, 1);
+  char msg[] = "Should not remove from an empty list\n";
+  int expected_values[] = {0, 2};
+  Status status = assert(list, msg, result, 2, expected_values, Failure);
+  print_result(status, msg);
+}
+
+void test_remove_first_occurrence(void)
+{
+  List_ptr list = create_list();
+  printf("\n#remove_first_occurrence\n");
+  remove_first_occurrence_in_empty_list(list);
+  remove_first_occurrence_one_element_list(list);
+  remove_first_occurrence_from_end_more_than_one_element_list(list);
+  remove_first_occurrence_from_start_more_than_one_element_list(list);
+  remove_first_occurrence_from_medium_more_than_one_element_list(list);
+  remove_first_occurrence_when_more_occurrences_in_list(list);
+  remove_first_occurrence_if_no_occurrences_in_list(list);
+}
+
 int main(void)
 {
   test_add_to_end();
@@ -342,5 +425,6 @@ int main(void)
   test_remove_from_start();
   test_remove_from_end();
   test_remove_at();
+  test_remove_first_occurrence();
   return 0;
 }
