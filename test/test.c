@@ -536,7 +536,7 @@ void clear_list_when_more_than_one_element_in_list(List_ptr list)
   add_to_end(list, 0);
   add_to_end(list, 1);
   int result = clear_list(list);
-  char msg[] = "Should clear when only more than one element in list\n";
+  char msg[] = "Should clear when more than one element in list\n";
   int expected_values[0] = {};
   Status status = assert(list, msg, result, 0, expected_values, Success);
   print_result(status, msg);
@@ -551,6 +551,54 @@ void test_clear_list(void)
   clear_list_when_more_than_one_element_in_list(list);
 }
 
+void is_present_empty_list(List_ptr list)
+{
+  int result = is_present(list, 0);
+  char msg[] = "Should invalidate when list is empty\n";
+  int expected_values[0] = {};
+  Status status = assert(list, msg, result, 0, expected_values, Failure);
+  print_result(status, msg);
+}
+
+void is_present_one_element_list(List_ptr list)
+{
+  add_to_end(list, 0);
+  int result = is_present(list, 0);
+  char msg[] = "Should validate when list has one element\n";
+  int expected_values[1] = {0};
+  Status status = assert(list, msg, result, 1, expected_values, Success);
+  print_result(status, msg);
+}
+
+void is_present_more_than_one_element_when_present_list(List_ptr list)
+{
+  add_to_end(list, 1);
+  int result = is_present(list, 1);
+  char msg[] = "Should validate when list has more than one element\n";
+  int expected_values[2] = {0, 1};
+  Status status = assert(list, msg, result, 2, expected_values, Success);
+  print_result(status, msg);
+}
+
+void is_present_more_than_one_element_when_not_present_list(List_ptr list)
+{
+  int result = is_present(list, 3);
+  char msg[] = "Should invalidate when list does not present element\n";
+  int expected_values[2] = {0, 1};
+  Status status = assert(list, msg, result, 2, expected_values, Failure);
+  print_result(status, msg);
+}
+
+void test_is_present(void)
+{
+  List_ptr list = create_list();
+  printf("\n#is_present\n");
+  is_present_empty_list(list);
+  is_present_one_element_list(list);
+  is_present_more_than_one_element_when_present_list(list);
+  is_present_more_than_one_element_when_not_present_list(list);
+}
+
 int main(void)
 {
   test_add_to_end();
@@ -563,5 +611,6 @@ int main(void)
   test_remove_first_occurrence();
   test_remove_all_occurrences();
   test_clear_list();
+  test_is_present();
   return 0;
 }
