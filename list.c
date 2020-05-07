@@ -215,13 +215,6 @@ Status remove_first_occurrence(List_ptr list, int value)
   return Failure;
 }
 
-void set_head_and_last(List_ptr list)
-{
-  list->head = NULL;
-  list->last = NULL;
-  list->count = 0;
-}
-
 Status remove_all_occurrences(List_ptr list, int value)
 {
   Node_ptr p_walk = list->head;
@@ -250,7 +243,9 @@ Status clear_list(List_ptr list)
     free(p_walk);
     p_walk = next;
   }
-  set_head_and_last(list);
+  list->head = NULL;
+  list->last = NULL;
+  list->count = 0;
   return Success;
 }
 
